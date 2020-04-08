@@ -13,16 +13,16 @@ class TagSeeder extends Seeder
     public function run()
     {
         $records = [
-            ['name' => '音樂'],
-            ['name' => '教育'],
-            ['name' => '金融'],
-            ['name' => '證券'],
-            ['name' => '前端'],
-            ['name' => '後端'],
-            ['name' => 'UI/UX'],
-            ['name' => '農林漁牧'],
-            ['name' => '建築'],
-            ['name' => '博弈']
+            ['name' => '音樂', 'created_at' => now(), 'updated_at', now()],
+            ['name' => '教育', 'created_at' => now(), 'updated_at', now()],
+            ['name' => '金融', 'created_at' => now(), 'updated_at', now()],
+            ['name' => '證券', 'created_at' => now(), 'updated_at', now()],
+            ['name' => '前端', 'created_at' => now(), 'updated_at', now()],
+            ['name' => '後端', 'created_at' => now(), 'updated_at', now()],
+            ['name' => 'UI/UX', 'created_at' => now(), 'updated_at', now()],
+            ['name' => '農林漁牧', 'created_at' => now(), 'updated_at', now()],
+            ['name' => '建築', 'created_at' => now(), 'updated_at', now()],
+            ['name' => '博弈', 'created_at' => now(), 'updated_at', now()]
         ];
         Tag::insert($records);
     }
