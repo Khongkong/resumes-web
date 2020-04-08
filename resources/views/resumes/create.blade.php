@@ -17,8 +17,7 @@
                     <div class="form-group">
                         <label for="resume-tag">履歷標籤</label>
                         <select class="form-control" name="tags[]" id="resume-tag" multiple="multiple">
-                            <option disabled>選擇標籤</option>
-                          </select>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="resume-content">履歷內容</label>
@@ -49,6 +48,10 @@
         CKEDITOR.replace('content');
         $(() => {
             getTags();
+            $('#resume-tag').select2({
+                maximumSelectionLength: 5,
+                placeholder: '請選擇標籤'
+            });
         })
         const select = $('#resume-tag');
         function getTags(){

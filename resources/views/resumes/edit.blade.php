@@ -15,8 +15,7 @@
                     <div class="form-group">
                         <label for="resume-tag">履歷標籤</label>
                         <select class="form-control" name="tags[]" id="resume-tag" multiple="multiple">
-                            <option disabled>選擇標籤</option>
-                          </select>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="resume-content">履歷內容</label>
@@ -41,10 +40,12 @@
     <script>
         CKEDITOR.replace('content');
         $(() => {
-            $('#{{\App\Enums\ResumeType::getDescription((string)$resume->type)}}').attr("checked", "checked");
-        })
-        $(() => {
             getTags();
+            $('#{{\App\Enums\ResumeType::getDescription((string)$resume->type)}}').attr("checked", "checked");
+            $('#resume-tag').select2({
+                maximumSelectionLength: 5,
+                placeholder: '請選擇標籤'
+            });
         })
         
         function getTags(){
