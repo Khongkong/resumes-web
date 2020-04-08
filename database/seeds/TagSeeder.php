@@ -22,6 +22,7 @@ class TagSeeder extends Seeder
             ['name' => 'UI/UX'],
             ['name' => '農林漁牧'],
             ['name' => '建築'],
+            ['name' => '博弈']
         ];
         Tag::insert($records);
     }
