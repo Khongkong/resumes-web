@@ -7,7 +7,7 @@
             <h1>{{$resume->title}}</h1>
             @if (count($resume->tags) > 0)
                 @foreach ($resume->tags as $tag)
-                    <button class="btn btn-secondary btn-sm">{{$tag->name}}</button>
+                    <button class="btn btn-secondary btn-sm" onclick="location.href = '/tag/{{$tag->id}}'">{{$tag->name}}</button>
                 @endforeach
             @endif
             <br><br>
