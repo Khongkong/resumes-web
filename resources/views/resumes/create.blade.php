@@ -24,18 +24,14 @@
                         <textarea name="content" id="resume-content" cols="30" rows="10" class="form-control" placeholder="履歷內容"></textarea>
                     </div>
                     <label>履歷語言</label>
-                    <div class="form-check">
-                        <input class="form-check-input" name="type" type="radio" id="type-mandarin" value=1>
-                        <label class="form-check-label" for="type">
-                        中文
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" name="type" type="radio" id="type-english" value=0>
-                        <label class="form-check-label" for="type">
-                        英文
-                        </label>
-                    </div>
+                    @foreach(\App\Enums\ResumeType::getValues() as $val)
+                        <div class="form-check">
+                            <input class="form-check-input" name="type" type="radio" id="{{ \App\Enums\ResumeType::getDescription($val) }}" value={{ $val }}>
+                            <label class="form-check-label" for="type">
+                            {{ \App\Enums\ResumeType::getDescription($val) }}
+                            </label>
+                        </div>
+                    @endforeach
                     <hr>
                     <button type="button" class="btn btn-secondary" onclick=" location.href = '/resume'">回上一頁</button>
                     <button type="submit" class="btn btn-primary">提交</button>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Resume;
 use App\Enums\UserType;
 use App\Enums\ResumeType;
+use Illuminate\Support\Facades\Redis;
 use BenSampo\Enum\Rules\EnumValue;
 
 class ResumeController extends Controller
@@ -65,6 +66,10 @@ class ResumeController extends Controller
         $resume->save();
         $resume->tags()->attach($request->input('tags'));
         $resume->save();
+
+        // 把新增履歷的行為放入快取
+        Redis::hSet('user', 'modify_reusme:count', 1);
+        
         return redirect('/home');
     }
 
@@ -139,6 +144,8 @@ class ResumeController extends Controller
         $resume = Resume::find($id);
         $resume->tags()->detach();
         $resume->delete();
+        
+        Redis::hSet('user', 'modify_reusme:count', 1);
         return redirect('/home');
     }
 }

@@ -15,9 +15,18 @@ class TagController extends Controller
      */
     public function index()
     {
-        if(!Redis::command('EXISTS' , ['tags'])) {
+        // Redis::flushAll();
+        // tag 是否有被新增
+        $is_added_tag = Redis::get('add_tag:count') ?? 0;
+        
+        if(!Redis::command('EXISTS' , ['tags']) || $is_added_tag) {
             Redis::set('tags', json_encode(Tag::all()));
             Redis::expire('tags', 3600);
+            
+            // 重新快取標籤後，把 add_tag:count 降為 0
+            if($is_added_tag > 0) {
+                Redis::decr('add_tag:count');
+            }
         }
         $tags = json_decode(Redis::get('tags'));
         return $tags;
@@ -48,7 +57,12 @@ class TagController extends Controller
             ['name' => $request->input('name')]
         );
         $tag->save();
-        return redirect('/home');
+        
+        // 把新增標籤的行為放入快取
+        if(!Redis::command('EXISTS', ['add_tag:count']) || Redis::get('add_tag:count') == 0){
+            Redis::incr('add_tag:count');
+        }
+        return redirect('/tag');
     }
 
     /**
