@@ -37,7 +37,7 @@ class ResumeController extends Controller
     {
         $user_id = auth()->user()->id;
         $resumeNumber = Resume::where('user_id', '=', $user_id)->count();
-        if($resumeNumber < MAX_RESUME_NUMBER){
+        if($resumeNumber < self::MAX_RESUME_NUMBER){
             return view('resumes.create');
         }
         return redirect('/home');
@@ -119,9 +119,8 @@ class ResumeController extends Controller
         $resume->content = $request->input('content');
         $resume->type = $request->input('type');
 
-        // many-to-many relationship (tags) attach
-        $resume->tags()->detach();
-        $resume->tags()->attach($request->input('tags'));
+        // many-to-many relationship (tags) sync
+        $resume->tags()->sync($request->input('tags'));
         
         // $resume->user_id = auth()->user()->id;
         $resume->save();

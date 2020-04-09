@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Resume;
+use Illuminate\Support\Facades\Redis;
 
 class HomeController extends Controller
 {
@@ -25,9 +26,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // dd(auth()->user());
+        Redis::command('FLUSHALL');
         $user_id = auth()->user()->id;
-        $user = User::find($user_id);
-        return view('home')->withResumes($user->resumes);
+        if(!Redis::command('EXISTS' , ['user']) || $user_id !== Redis::hGet('user', 'id')){
+            Redis::hSet('user', 'id', $user_id);
+            $user = User::find($user_id);
+            Redis::hSet('user', 'resumes', json_encode($user->resumes));
+            
+            Redis::expire('user', 300);
+        }
+        $resumes = json_decode(Redis::hGet('user', 'resumes'));
+        return view('home')->withResumes($resumes);
     }
 }

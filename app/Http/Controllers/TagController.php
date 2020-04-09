@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tag;
+use Illuminate\Support\Facades\Redis;
 
 class TagController extends Controller
 {
@@ -14,7 +15,12 @@ class TagController extends Controller
      */
     public function index()
     {
-        return Tag::all();
+        if(!Redis::command('EXISTS' , ['tags'])) {
+            Redis::set('tags', json_encode(Tag::all()));
+            Redis::expire('tags', 3600);
+        }
+        $tags = json_decode(Redis::get('tags'));
+        return $tags;
     }
 
     /**

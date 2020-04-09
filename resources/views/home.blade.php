@@ -19,7 +19,7 @@
                                 <div class="row">
                                     <div class="col-md-8 col-sm-8">
                                         <h3><a href="/resume/{{$resume->id}}">{{$resume->title}}</a></h3>
-                                        <small>新增時間：{{$resume->created_at}} by {{$resume->user->name}}</small>
+                                        <small>新增時間：{{date('y-m-d h:m:s',strtotime($resume->created_at))}}</small>
                                     </div>
                                 </div>
                             </div>

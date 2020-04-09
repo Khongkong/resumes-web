@@ -87,5 +87,5 @@ Migration 完成後，將 `.env` 的 `DB_HOST` 改回 `mysql`，專案就可以�
 * 額外做的 feature：
     * 會員履歷數限制三篇；
     * 登入功能，會員制：有會員才可檢視履歷內容、新增履歷；
-    * 會員權限：權限分為 Super Admin、Admin 和 Member（一般會員），Super Admin 與 Admin 有新增標籤的權限；Super Admin 有編輯與刪除每位會員履歷的權限。
-
+    * 會員權限：權限分為 Super Admin、Admin 和 Member（一般會員），Super Admin 與 Admin 有新增標籤的權限；Super Admin 有編輯與刪除每位會員履歷的權限；
+    * 在 controller 新增 Redis 快取功能。
