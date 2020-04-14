@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'created_at', 'updated_at'];
     public function resumes() 
     {
         return $this->belongsToMany('App\Resume');

@@ -6,7 +6,7 @@ use App\User;
 use App\Enums\UserType;
 use Illuminate\Support\Str;
 
-class SuperAdminSeeder extends Seeder
+class AdminSeeder extends Seeder
 {
     /**
      * Run the database seeds.

@@ -8,14 +8,12 @@ use App\Enums\ResumeType;
 use Faker\Generator as Faker;
 
 $factory->define(Resume::class, function (Faker $faker) {
-    $userIds = array_map(function($user){
-        $user->id;
-    },User::all());
-
+    factory(App\User::class, 10)->create();
+    $users = App\User::all();
     return [
         'title' => $faker->realText($maxNbChars = 15),
         'content' => $faker->realText($maxNbChars = 200),
         'type' => ResumeType::English,
-        'user_id' => array_rand($userIds)
+        'user_id' => $users->random()->pluck('id')
     ];
 });
