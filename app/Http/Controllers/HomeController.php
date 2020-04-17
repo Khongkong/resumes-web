@@ -29,10 +29,11 @@ class HomeController extends Controller
         // Redis::command('FLUSHALL');
         
         // resume 是否有被新增
-        $is_added_resume = Redis::hGet('user', 'modify_reusme:count') ?? 0;
+        $is_added_resume = Redis::hGet('user', 'modify_reusme:count') ?? false;
         
 
         $user_id = auth()->user()->id;
+        // dd(Redis::hGet('user', 'id'));
         if(!Redis::command('EXISTS' , ['user']) || $user_id != Redis::hGet('user', 'id') || $is_added_resume){
             Redis::hSet('user', 'id', $user_id);
             $user = User::find($user_id);

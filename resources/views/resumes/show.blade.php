@@ -36,7 +36,7 @@
                         @foreach ($resume->comments as $comment)
                         <div class="card bg-light p-3 my-2">
                             <div class="row">
-                                <div class="col-3 d-flex flex-column bd-highlight ml-1">
+                                <div class="col-2 d-flex flex-column bd-highlight ml-1">
                                     <img src="{{asset('duck.jpeg')}}" class="rounded mx-auto mb-1" alt="" width="50px" height="50px">
                                     <small class="mx-auto">{{$comment->user->name}}</small>
                                 </div>

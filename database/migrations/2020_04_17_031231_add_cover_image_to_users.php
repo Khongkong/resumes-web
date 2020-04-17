@@ -14,7 +14,7 @@ class AddCoverImageToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('cover_image');
+            $table->string('cover_image')->default('');
         });
     }
 
