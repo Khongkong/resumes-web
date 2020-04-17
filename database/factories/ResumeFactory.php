@@ -14,6 +14,6 @@ $factory->define(Resume::class, function (Faker $faker) {
         'title' => $faker->realText($maxNbChars = 15),
         'content' => $faker->realText($maxNbChars = 200),
         'type' => ResumeType::English,
-        'user_id' => $users->random()->pluck('id')
+        'user_id' => $users->pluck('id')->random()
     ];
 });

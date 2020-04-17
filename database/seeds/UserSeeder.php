@@ -13,5 +13,12 @@ class UserSeeder extends Seeder
     {
         // factory(App\User::class, 10)->create();
         factory(App\Resume::class, 20)->create();
+        
+        $tags = App\Tag::all();
+        App\Resume::all()->each(function ($resume) use ($tags) { 
+            $resume->tags()->attach(
+                $tags->random(rand(1, 10))->pluck('id')->toArray()
+            ); 
+        });
     }
 }

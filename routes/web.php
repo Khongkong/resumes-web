@@ -34,3 +34,6 @@ Route::get('/tag', function(){
 });
 Route::get('/tag/create', 'TagController@create');
 Route::get('/tag/{id}', 'TagController@show');
+Route::get('/comments', function() {
+    dd(\App\Comment::find(2)->user);
+});
