@@ -13,7 +13,14 @@
                                     <div class="row">
                                         <div class="col-md-8 col-sm-8">
                                             <h3><a href="/resume/{{$resume->id}}">{{$resume->title}}</a></h3>
-                                            <small>新增時間：{{$resume->created_at}} by {{$resume->user->name}}</small>
+                                            <small>
+                                                新增時間：{{\Carbon\Carbon::parse($resume->created_at)
+                                                ->tz('Europe/London')
+                                                ->setTimeZone('Asia/Taipei')->locale('zh_TW')
+                                                ->diffForHumans()}}／作者：{{$resume->user->name}}
+                                            </small>
+                                            <br>
+                                            <small>{{$resume->comments->count()}}則留言</small>
                                         </div>
                                     </div>
                                 </div>
