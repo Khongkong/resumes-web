@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Resume;
-use App\Enums\UserType;
 use App\Enums\ResumeType;
 use Illuminate\Support\Facades\Redis;
 use BenSampo\Enum\Rules\EnumValue;
+use Illuminate\Support\Facades\Gate;
 
 class ResumeController extends Controller
 {
@@ -94,9 +94,7 @@ class ResumeController extends Controller
     public function edit($id)
     {
         $resume = Resume::find($id);
-        $isAdmin = auth()->user()->authority == UserType::SuperAdmin;
-        $isUser = auth()->user()->id == $resume->user_id;
-        if($isUser || $isAdmin){
+        if(Gate::allows('edit-or-delete-resume', $resume)){
             return view('resumes.edit')->withResume($resume);
         }
         return redirect('/resume');

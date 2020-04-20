@@ -16,7 +16,7 @@
                 <button class="btn btn-secondary" onclick="history.back()">
                     回上一頁
                 </button>
-                @if(Auth::user()->id == $resume->user_id || Auth::user()->authority == 0)
+                @if(Gate::allows('edit-or-delete-resume', $resume))
                         <button class="btn btn-primary" onclick="window.location.href = '/resume/{{$resume->id}}/edit'">修改</button>
                         <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">刪除</button>
                     @endif
