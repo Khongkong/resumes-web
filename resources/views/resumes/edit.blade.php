@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <h1>編輯履歷</h1>
-                <form id="resume-edit" action="/api/resume/{{$resume->id}}" method="POST">
+                <form id="resume-edit" action="/resume/{{$resume->id}}" method="POST">
                     @method('PUT')
                     @csrf
                     <div class="form-group">
@@ -58,7 +58,7 @@
             });
             $.ajax({
                 type: "GET",
-                url: '/api/tag',
+                url: '/tag',
                 contentType: "application/json",
                 dataType: 'json',
                 success: (tags) => {

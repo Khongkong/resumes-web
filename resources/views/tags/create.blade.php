@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <h1>新增標籤</h1>
-                <form id="tag-create" action="/api/tag" method="POST">
+                <form id="tag-create" action="/tag" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="tag-title">標籤名稱</label>

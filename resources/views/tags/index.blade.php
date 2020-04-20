@@ -26,7 +26,7 @@
         });
         $.ajax({
             type: "GET",
-            url: '/api/tag',
+            url: '/tag',
             contentType: "application/json",
             dataType: 'json',
             success: (tags) => {

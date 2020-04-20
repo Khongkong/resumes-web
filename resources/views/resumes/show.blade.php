@@ -32,7 +32,7 @@
             <hr>
             <div class="card">
                 <div class="card-header">評論：</div>
-                    <div class="card-body">
+                    <div id="comment" class="card-body">
                         @foreach ($resume->comments as $comment)
                         <div class="card bg-light p-3 my-2">
                             <div class="row">
@@ -47,10 +47,32 @@
                         </div>
                         @endforeach
                     </div>
+                    <div class="card-body">
+                        <div class="card bg-light p-3 my-2">
+                            <div class="row">
+                                <div class="col-2 d-flex flex-column bd-highlight ml-1">
+                                    <img src="{{asset('duck.jpeg')}}" class="rounded mx-auto mb-1" alt="" width="50px" height="50px">
+                                    <small class="mx-auto">{{Auth::user()->name}}</small>
+                                </div>
+                                <div class="col-md-9 col-sm-9">
+                                    <form id="add-comment" action="/comment" method="POST">
+                                        @csrf
+                                        <div class="input-group" aria-describedby="button-addon">
+                                            <input name="comment-content" id="comment-content" class="form-control">
+                                            <div class="input-group-append" id="button-addon">
+                                                <button type="submit" class="btn btn-primary">提交</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@include('inc.delete')    
+@include('inc.delete')
+@include('inc.appendComment')
 @endsection

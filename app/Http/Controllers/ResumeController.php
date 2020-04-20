@@ -12,9 +12,11 @@ use Illuminate\Support\Facades\Gate;
 class ResumeController extends Controller
 {
     private const MAX_RESUME_NUMBER = 3;
+    protected $resume;
 
-    public function __construct() {
-        $this->middleware('auth')->except(['index', 'update', 'store', 'destroy']);
+    public function __construct(Resume $resume) {
+        $this->resume = $resume;
+        $this->middleware('auth')->except('index');
     }
 
     /**
@@ -58,14 +60,14 @@ class ResumeController extends Controller
             'content' => 'required',
             'type' => ['required', new EnumValue(ResumeType::class)]
         ));
-        $resume = new Resume;
-        $resume->title = $request->input('title');
-        $resume->content = $request->input('content');
-        $resume->type = $request->input('type');
-        $resume->user_id = $request->input('user');
-        $resume->save();
-        $resume->tags()->attach($request->input('tags'));
-        $resume->save();
+        // $resume = new Resume;
+        $this->resume->title = $request->input('title');
+        $this->resume->content = $request->input('content');
+        $this->resume->type = $request->input('type');
+        $this->resume->user_id = $request->input('user');
+        $this->resume->save();
+        $this->resume->tags()->attach($request->input('tags'));
+        $this->resume->save();
 
         // 把新增履歷的行為放入快取
         Redis::hSet('user', 'modify_reusme:count', 1);
@@ -141,6 +143,7 @@ class ResumeController extends Controller
     {
         $resume = Resume::find($id);
         $resume->tags()->detach();
+        $resume->comments()->delete();
         $resume->delete();
         
         Redis::hSet('user', 'modify_reusme:count', 1);

@@ -17,23 +17,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/resume', 'ResumeController@index');
-Route::get('/resume/create', 'ResumeController@create');
-Route::get('/resume/{id}', 'ResumeController@show');
-Route::get('/resume/{id}/edit', 'ResumeController@edit');
 
-Route::get('/tag', function(){
+Route::get('/alltag', function(){
     return view('tags.index');
 });
-Route::get('/tag/create', 'TagController@create');
-Route::get('/tag/{id}', 'TagController@show');
-Route::get('/comments', function() {
-    dd(\App\Comment::find(2)->user);
-});
+Route::resource('resume', 'ResumeController');
+Route::resource('tag', 'TagController');
+
+// Route::get('/resume', 'ResumeController@index');
+// Route::get('/resume/create', 'ResumeController@create');
+// Route::get('/resume/{id}', 'ResumeController@show');
+// Route::get('/resume/{id}/edit', 'ResumeController@edit');
+
+// Route::get('/tag/create', 'TagController@create');
+// Route::get('/tag/{id}', 'TagController@show');
+Route::post('/comment', 'CommentController@store');
