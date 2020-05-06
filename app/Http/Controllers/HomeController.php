@@ -33,11 +33,11 @@ class HomeController extends Controller
         
 
         $user_id = auth()->user()->id;
-        // dd(Redis::hGet('user', 'id'));
         if(!Redis::command('EXISTS' , ['user']) || $user_id != Redis::hGet('user', 'id') || $is_added_resume){
             Redis::hSet('user', 'id', $user_id);
-            $user = User::find($user_id);
-            Redis::hSet('user', 'resumes', json_encode($user->resumes));
+            $resumes = Resume::with('user')->with('comments')->where('user_id' ,$user_id)->get();
+            // dd($resumes);
+            Redis::hSet('user', 'resumes', json_encode($resumes));
             
             // 重新快取標籤後，把 add_resume:count 降為 0
             Redis::hSet('user', 'modify_reusme:count', 0);

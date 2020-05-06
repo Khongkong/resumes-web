@@ -71,7 +71,7 @@ class ResumeController extends Controller
 
         // 把新增履歷的行為放入快取
         Redis::hSet('user', 'modify_reusme:count', 1);
-        
+
         return redirect('/home');
     }
 
@@ -100,7 +100,7 @@ class ResumeController extends Controller
             return view('resumes.edit')->withResume($resume);
         }
         return redirect('/resume');
-        
+
     }
 
     /**
@@ -126,7 +126,7 @@ class ResumeController extends Controller
 
         // many-to-many relationship (tags) sync
         $resume->tags()->sync($request->input('tags'));
-        
+
         // $resume->user_id = auth()->user()->id;
         $resume->save();
         return redirect('/home');
@@ -145,7 +145,7 @@ class ResumeController extends Controller
         $resume->tags()->detach();
         $resume->comments()->delete();
         $resume->delete();
-        
+
         Redis::hSet('user', 'modify_reusme:count', 1);
         return redirect('/home');
     }

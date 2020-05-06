@@ -36,3 +36,5 @@ Route::resource('tag', 'TagController');
 // Route::get('/tag/create', 'TagController@create');
 // Route::get('/tag/{id}', 'TagController@show');
 Route::post('/comment', 'CommentController@store');
+Route::get('/profile', 'UserController@profile');
+Route::post('/update_profile', 'UserController@update');

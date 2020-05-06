@@ -36,22 +36,22 @@
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             @if(Auth::user()->authority == \App\Enums\UserType::SuperAdmin)
-                                <i class="fas fa-crown"></i> {{ \App\Enums\UserType::getDescription((string)Auth::user()->authority) }}: 
+                                <i class="fas fa-crown"></i> {{ \App\Enums\UserType::getDescription((string)Auth::user()->authority) }}:
                             @elseif(Auth::user()->authority == \App\Enums\UserType::Admin)
-                                <i class="fas fa-user-tie"></i> {{ \App\Enums\UserType::getDescription((string)Auth::user()->authority) }}: 
+                                <i class="fas fa-user-tie"></i> {{ \App\Enums\UserType::getDescription((string)Auth::user()->authority) }}:
                             @else
-                                <i class="fas fa-user"></i> {{ \App\Enums\UserType::getDescription((string)Auth::user()->authority) }}: 
+                                <i class="fas fa-user"></i> {{ \App\Enums\UserType::getDescription((string)Auth::user()->authority) }}:
                             @endif
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/profile">個人資料</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
-
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>

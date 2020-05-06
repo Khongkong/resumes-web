@@ -23,8 +23,10 @@
                                             新增時間：{{\Carbon\Carbon::parse($resume->created_at)
                                             ->tz('Europe/London')
                                             ->setTimeZone('Asia/Taipei')->locale('zh_TW')
-                                            ->diffForHumans()}}／作者：{{Auth::user()->name}}
+                                            ->diffForHumans()}}／作者：{{$resume->user->name}}
                                         </small>
+                                        <br>
+                                        <small>{{count($resume->comments)}}則留言</small>
                                     </div>
                                 </div>
                             </div>

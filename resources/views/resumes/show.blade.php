@@ -11,17 +11,17 @@
                     <button class="btn btn-secondary btn-sm mr-1" onclick="location.href = '/tag/{{$tag->id}}'">{{$tag->name}}</button>
                 @endforeach
             @endif
-            <div class="button-group ml-auto">
-                @if(!Auth::guest())
-                <button class="btn btn-secondary" onclick="history.back()">
-                    回上一頁
-                </button>
-                @if(Gate::allows('edit-or-delete-resume', $resume))
-                        <button class="btn btn-primary" onclick="window.location.href = '/resume/{{$resume->id}}/edit'">修改</button>
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">刪除</button>
+                <div class="button-group ml-auto">
+                    @if(!Auth::guest())
+                    <button class="btn btn-secondary" onclick="history.back()">
+                        回上一頁
+                    </button>
+                    @if(Gate::allows('edit-or-delete-resume', $resume))
+                            <button class="btn btn-primary" onclick="window.location.href = '/resume/{{$resume->id}}/edit'">修改</button>
+                            <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">刪除</button>
+                        @endif
                     @endif
-                @endif
-            </div>
+                </div>
             </div>
             <br><br>
             <div>

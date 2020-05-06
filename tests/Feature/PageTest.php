@@ -63,7 +63,7 @@ class PageTest extends TestCase
     public function testTagPageWorking()
     {
         // Act
-        $response = $this->get('/tag');
+        $response = $this->get('/alltag');
         // Assert
         $response->assertStatus(200);
         $response->assertSeeText('標籤');
@@ -80,6 +80,5 @@ class PageTest extends TestCase
         $response = $this->get('/home');
         $response->assertStatus(200);
         $response->assertSeeText('你的履歷');
-        $response->assertSeeText('建立新履歷');
     }
 }
