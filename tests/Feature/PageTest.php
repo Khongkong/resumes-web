@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 use App\User;
 use App\Resume;
 use App\Tag;
+use Illuminate\Support\Facades\Auth;
 
 class PageTest extends TestCase
 {
@@ -25,7 +26,7 @@ class PageTest extends TestCase
         $response->assertSeeText('履歷們');
         $response->assertSeeText('所有履歷');
     }
-    
+
     public function testLandingPageWithAFakeUserLoggedIn()
     {
         $user = new User([
@@ -33,13 +34,13 @@ class PageTest extends TestCase
             'name' => 'Harbor'
         ]);
         $this->be($user);
-        
+
         $response = $this->get('/');
 
         $response->assertStatus(200);
         $response->assertSeeText('你的履歷');
     }
-    
+
     public function testResumePageWhenNoResume()
     {
         $response = $this->get('/resume');
@@ -47,7 +48,7 @@ class PageTest extends TestCase
         $response->assertSeeText('所有履歷');
         $response->assertSeeText('目前沒有任何履歷');
     }
-    
+
     public function testResumePageWhen1Resume()
     {
         // Arrange
@@ -71,11 +72,9 @@ class PageTest extends TestCase
 
     public function testAccessHomePageWithAFakeUser()
     {
-        $user = new User([
-            'id' => 1,
-            'name' => 'Harbor'
-        ]);
-        $this->be($user);
+        factory(User::class)->create();
+
+        Auth::login(User::first(), true);
 
         $response = $this->get('/home');
         $response->assertStatus(200);
